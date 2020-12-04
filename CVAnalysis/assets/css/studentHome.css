@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+
+.topSection {
+  background-color: #023e8a;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.mainSection {
+  width: 100%;
+  height: 81.9vh;
+}
+
+.mainSection .search {
+  padding: 30px 40px;
+}
+
+.search input:focus {
+  box-shadow: none;
+}
+
+.footer {
+  background-color: #133b5c;
+  color: white;
+  padding: 12px 0px;
+}
+
+/* @media only screen and (max-width: 700px) {
+    .mainSection .rightSection {
+      display: none;
+    }
+  } */

@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+
+.topSection {
+  background-color: #023e8a;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.leftSection .wrapper {
+  margin: 1vh 4vh;
+}
+
+.leftSection {
+  height: 81.9vh;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.forImg {
+  text-align: center;
+}
+
+.leftSection .forImg img {
+  height: 25vh;
+  width: 44%;
+  border-radius: 60%;
+  margin: 2vh 0px;
+}
+
+.leftSection h5 {
+  font-weight: 490;
+  text-shadow: 1px 1px 3px rgb(122, 120, 120);
+  text-align: center;
+  font-family: bold;
+  font-size: 22px;
+}
+
+.leftSection .details {
+  margin: 3vh 3vh;
+  padding: 5px;
+}
+
+.leftSection .btn {
+  background-color: #2a3d66;
+  padding: 6px 18px;
+  color: white;
+  transition: all 0.3s ease;
+  margin-top: 1vh;
+}
+
+.leftSection .btn:hover {
+  padding: 6px 30px;
+  background-color: #bde0f3;
+  color: black;
+}
+.leftSection .details h6 {
+  padding: 5px;
+}
+
+.rightSection {
+  background-color: #f4f4f4;
+}
+
+.footer {
+  background-color: #133b5c;
+  color: white;
+  padding: 12px 0px;
+}
+
+.rightSection .mainContent {
+  padding: 20px;
+}
+
+/* @media only screen and (max-width: 700px) {
+  .mainSection .rightSection {
+    display: none;
+  }
+} */

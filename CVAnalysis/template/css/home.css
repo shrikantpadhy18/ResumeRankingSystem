@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+
+.topSection {
+  background-color: #023e8a;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.mainSection {
+  margin-top: 12vh;
+  padding: 6vh 0vh;
+  margin-bottom: 32px;
+}
+
+.leftSection {
+  padding: 30px;
+}
+
+.leftSection .content {
+  margin-top: 20vh;
+}
+
+.leftSection .content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content .leftSide,
+.content .rightSide {
+  margin-right: 20px;
+  width: 50%;
+}
+
+.content h3 {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 555;
+  text-shadow: 2px 2px 5px rgb(196, 192, 192);
+}
+
+.content p {
+  font-size: 18px;
+}
+
+.content .btn {
+  background-color: #beebe9;
+  padding: 6px 20px;
+  color: black;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.content .btn:hover {
+  padding: 6px 30px;
+  background-color: #e1f2fb;
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.footer {
+  background-color: #133b5c;
+  color: white;
+  padding: 12px 0px;
+}
+
+@media only screen and (max-width: 700px) {
+  .mainSection .rightSection {
+    display: none;
+  }
+}

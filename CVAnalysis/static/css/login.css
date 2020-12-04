@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+
+.topSection {
+  background-color: #023e8a;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.main {
+  margin-top: 8vh;
+}
+
+.main .leftOne {
+  padding: 40px;
+}
+
+.main .rightOne {
+  position: relative;
+  padding: 40px 0px;
+}
+
+.rightOne .formSection {
+  position: absolute;
+  right: 14%;
+  width: 48%;
+  padding: 30px 38px;
+  background-color: white;
+  border: 2px solid rgb(245, 241, 241);
+  box-shadow: 2px 2px 4px rgb(172, 175, 194);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.formSection .btn {
+  background-color: #2a3d66;
+  padding: 6px 20px;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.formSection .btn:hover {
+  padding: 6px 30px;
+  background-color: #e1f2fb;
+  color: black;
+}
+
+.formSection .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.info {
+  text-align: center;
+  padding: 14px;
+  margin-top: 2vh;
+}
+
+@media only screen and (max-width: 625px) {
+  .main .leftOne {
+    display: none;
+  }
+
+  .rightOne .formSection {
+    position: absolute;
+    top: 0;
+    right: 20%;
+    width: 60%;
+  }
+}

@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #023e8a;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.MainHome {
+  height: 100vh;
+}
+
+.Footer {
+  height: 70px;
+  background: #133b5c;
+  color: white;
+  padding: 12px 0px;
+  text-align: center;
+}
+
+.Footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

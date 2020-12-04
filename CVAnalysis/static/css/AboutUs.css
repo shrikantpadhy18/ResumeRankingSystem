@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #023e8a;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.container {
+  margin-top: 70px;
+}
+
+.about {
+  /* cursor: pointer; */
+  height: 100vh;
+  background-color: #f4f4f4;
+  color: black;
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+.about h1 {
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+.about h2 {
+  opacity: 0.8;
+}
+.about span {
+  display: block;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  margin: auto;
+  border-radius: 50%;
+  font-size: 40px;
+  color: #ffffff;
+  opacity: 0.7;
+  background-color: #4c0822;
+  border: 2px solid #4c0822;
+
+  webkit-transition: all 0.5s ease;
+  moz-transition: all 0.5s ease;
+  os-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.about-item:hover span {
+  opacity: 1;
+  border: 2px solid #cc0039;
+  font-size: 42px;
+  -webkit-transform: scale(1.1, 1.1) rotate(360deg);
+  -moz-transform: scale(1.1, 1.1) rotate(360deg);
+  -o-transform: scale(1.1, 1.1) rotate(360deg);
+  transform: scale(1.1, 1.1) rotate(360deg);
+}
+.about-item:hover h2 {
+  opacity: 1;
+  -webkit-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
+.about ul {
+  margin-top: 20px;
+  color: #cc0039;
+}
+
+.Footer {
+  height: 70px;
+  background: #133b5c;
+  color: white;
+  padding: 12px 0px;
+  text-align: center;
+}
+
+.Footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

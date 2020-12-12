@@ -11,3 +11,4 @@ class CompanyDetail(models.Model):
     address2=models.CharField(max_length=30)
     password=models.CharField(max_length=12)
     
+    

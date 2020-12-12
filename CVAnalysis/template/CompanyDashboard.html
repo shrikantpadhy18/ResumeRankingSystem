@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'CSS/CompanyDashboard.css' %}" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div class="NavBar">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Resume Ranking System</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/companyhome"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="DashboardMiddle container-fluid">
+      <div class="DashboardBody row">
+        <div class="leftSection col-sm-12 col-md-4">
+          <div class="wrapper">
+            <div class="forImg">
+              <!-- <img src="./images/profile.jpg" class="img-fluid" alt="user" /> -->
+              Company Logo
+            </div>
+            <h5>Company Name</h5>
+            <div class="details">
+              <h6>Email: name@gmail.com</h6>
+              <address>Street 123 San-Pada</address>
+              <h6>Mobile Number: 3568375884</h6>
+              <button class="btn">Edit Profile</button>
+              <button class="btn">Apply Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="Company_Req col-sm-12 col-md-8">
+          <h5>Requirement</h5>
+          <p>Blablablalbalbalbalbalblablablab..........</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="Footer">
+      <h5>
+        Copyright <i class="fa fa-copyright"></i> 2020. All Rights Reserved.
+      </h5>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome
 
 urlpatterns = [
 
     path('',homepage,name="homepage"),
+    path('companyhome/',companyhome,name="companyhome"),
+    path('companylogin/companyverify',companyverify,name="companyverify"),
+    path('companylogin/companyregister',companyregister,name="companyregister"), 
     path('companylogin/',companylogin,name="companylogin"),
+   
     path('about/',about,name="about"),
     path('studentDash/',studentDash,name="studentDash"),
     path('register/add/',add,name="add"),

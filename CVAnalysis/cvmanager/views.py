@@ -32,7 +32,7 @@ def add(request):
             
             
         except User.DoesNotExist:
-            if(password1==password2 and len(password1)>=5 and password1.isalnum()):
+            if(password1==password2 and len(password1)>=5):
                 user=User.objects.create_user(first_name=name,password=password1,email=email,username=username)
                 user.save()
                 print("user created")
@@ -44,6 +44,7 @@ def add(request):
 
 
 def companyregister(request):
+    
     if(request.method=="POST"):
         email=request.POST['email']
         password=request.POST['password']
@@ -53,10 +54,29 @@ def companyregister(request):
         address1=request.POST['address1']
 
         address2=request.POST['address2']
-        if(request.method=="POST"):
-            pass
+        record=CompanyDetail(email=email,password=password,address1=address1,address2=address2,state=state,city=city,zipcode=zipcode)    
+        record.save()
+        return render(request,"CompanyLogin.html")
+          
 
+def companyverify(request):
+    if(request.method=="POST"):
+        email=request.POST['email']
+        password=request.POST['password']
+        #company=auth.authenticate(email=email,password=password)
+        
+        is_companymail=CompanyDetail.objects.filter(email=email).exists()
+        is_companypass=CompanyDetail.objects.filter(password=password).exists()
+        if(is_companymail and is_companypass):
+            #auth.login(request,email)
+            return render(request,"CompanyDashboard.html")
+        else:
+            print("impossible")
+            messages.info(request,"Invalid Credentials")
+            return redirect("companylogin")
 
+def companyhome(request):
+    return render(request,"CompanyHome.html")
 
 def studentlogin(request):
     if(request.method=="POST"):

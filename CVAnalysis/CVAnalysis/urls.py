@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout
 
 urlpatterns = [
-
+    
     path('',homepage,name="homepage"),
     path('companyhome/',companyhome,name="companyhome"),
     path('companylogin/companyverify',companyverify,name="companyverify"),
@@ -34,6 +34,7 @@ urlpatterns = [
     
     path('login/studentlogin',studentlogin,name="studentlogin"),
     path('login/',login,name="login"),
+    path('signout/',signout,name="signout"),
     
     path('admin/', admin.site.urls),
 ]

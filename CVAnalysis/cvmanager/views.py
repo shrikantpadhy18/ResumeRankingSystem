@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from . models import CompanyDetail
+from django.contrib.sessions.models import Session 
 
 # Create your views here.
 from django.contrib import messages
@@ -85,6 +86,9 @@ def studentlogin(request):
         username=request.POST['username']
         user=auth.authenticate(username=username,password=password)
         if(user!=None):
+            request.session['is_logged']=True
+            request.session['email']=email
+            request.session['username']=username
             auth.login(request,user)
             print("user exists")
             return render(request,"studentHome.html")
@@ -93,10 +97,12 @@ def studentlogin(request):
             print("no user")
             return redirect("login")
 def studenthome(request):
-    return render(request,"studentHome.html")
-
+    if(request.session.has_key('is_logged')):
+        return render(request,"studentHome.html")
+    return redirect("login")
 def studentDash(request):
-    return render(request,"studentDash.html")
+    
+    return render(request,"studentDash.html",{'email':request.session['email'],'user':request.session['username']})
 
 def about(request):
     return render(request,"AboutUs.html")
@@ -104,4 +110,7 @@ def about(request):
 def companylogin(request):
     return render(request,"CompanyLogin.html")
 
-    
+def signout(request):
+    auth.logout(request)
+    #request.session['is_logged']=False
+    return render(request,"login.html")

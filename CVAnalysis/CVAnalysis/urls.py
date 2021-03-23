@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout
-
+from django.conf import settings
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply
+from django.conf.urls.static import static
 urlpatterns = [
     
     path('',homepage,name="homepage"),
@@ -31,10 +32,10 @@ urlpatterns = [
     path('register/',register,name="register"),
     
     path('contact/',contact,name="contact"),
-    
+    path('apply/',apply,name="apply"),
     path('login/studentlogin',studentlogin,name="studentlogin"),
     path('login/',login,name="login"),
     path('signout/',signout,name="signout"),
     
     path('admin/', admin.site.urls),
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

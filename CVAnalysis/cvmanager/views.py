@@ -114,3 +114,7 @@ def signout(request):
     auth.logout(request)
     #request.session['is_logged']=False
     return render(request,"login.html")
+def apply(request):
+    return render(request,"apply.html")
+    
+    

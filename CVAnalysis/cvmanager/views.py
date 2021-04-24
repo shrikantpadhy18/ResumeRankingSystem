@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
-from . models import CompanyDetail
+from . models import CompanyDetail,appliedDetail
 from django.contrib.sessions.models import Session 
 
 # Create your views here.
@@ -36,6 +36,7 @@ def add(request):
             if(password1==password2 and len(password1)>=5):
                 user=User.objects.create_user(first_name=name,password=password1,email=email,username=username)
                 user.save()
+                request.session['name']=name
                 print("user created")
                 return redirect('login')
             else:
@@ -89,6 +90,7 @@ def studentlogin(request):
             request.session['is_logged']=True
             request.session['email']=email
             request.session['username']=username
+            #request.session['name']=name
             auth.login(request,user)
             print("user exists")
             return render(request,"studentHome.html")
@@ -114,7 +116,22 @@ def signout(request):
     auth.logout(request)
     #request.session['is_logged']=False
     return render(request,"login.html")
+
 def apply(request):
+    
     return render(request,"apply.html")
-    
-    
+def applied(request):
+    if(request.method=="POST"):
+        name=request.POST["name"]
+        email=request.POST["email"]
+        mobile=request.POST["phone"]
+        gender=request.POST["gender"]
+        file=request.FILES["file"]
+        #resumepath="C://Users//shrikant padhy//Desktop//Path//"+request.session['username']
+        record=appliedDetail(name=name,email=email,mobile=mobile,gender=gender,resumepath=file)
+        #print(request.session['username'])
+        record.save()
+
+        return redirect("apply")
+def addesc(request):
+    return render(request,"RequireMentForm.html")

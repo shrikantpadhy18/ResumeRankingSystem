@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #023e8a;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.apply_all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#apply {
+  width: 50%;
+}
+
+.Footer {
+  height: 70px;
+  background: #133b5c;
+  color: white;
+  padding: 12px 0px;
+  text-align: center;
+}
+
+.Footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.new-register,
+.already-hv-account {
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.new-register:focus,
+.already-hv-account:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 1200px) {
+}
+
+@media only screen and (max-width: 993px) {
+}

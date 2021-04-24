@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.topSection {
+  background-color: #023e8a;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: rgb(212, 208, 208);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+.mainSection {
+  /* background-color: black; */
+  padding: 2% 2%;
+}
+.mainSection .formSection {
+  /* background-color: red; */
+  padding: 2% 4%;
+}
+
+.formSection .secondSection {
+  margin-top: 2%;
+}
+
+.formSection .btn {
+  background-color: #beebe9;
+  padding: 6px 20px;
+  color: black;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.formSection .btn:hover {
+  background-color: #e1f2fb;
+}
+
+.footer {
+  background-color: #133b5c;
+  color: white;
+  padding: 12px 0px;
+}

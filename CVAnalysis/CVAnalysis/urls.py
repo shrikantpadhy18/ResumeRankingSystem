@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc
+
 from django.conf import settings
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply
 from django.conf.urls.static import static
+from django.conf.urls import url
+from django.views.static import serve
+
 urlpatterns = [
     
     path('',homepage,name="homepage"),
@@ -25,17 +29,23 @@ urlpatterns = [
     path('companylogin/companyverify',companyverify,name="companyverify"),
     path('companylogin/companyregister',companyregister,name="companyregister"), 
     path('companylogin/',companylogin,name="companylogin"),
-   
+
     path('about/',about,name="about"),
     path('studentDash/',studentDash,name="studentDash"),
     path('register/add/',add,name="add"),
     path('register/',register,name="register"),
     
-    path('contact/',contact,name="contact"),
+    path('addesc/',addesc,name="addesc"),
+    path('apply/applied',applied,name="applied"),    
     path('apply/',apply,name="apply"),
+    path('contact/',contact,name="contact"),
     path('login/studentlogin',studentlogin,name="studentlogin"),
     path('login/',login,name="login"),
     path('signout/',signout,name="signout"),
-    
     path('admin/', admin.site.urls),
+    url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+    #urlpattern+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    #urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

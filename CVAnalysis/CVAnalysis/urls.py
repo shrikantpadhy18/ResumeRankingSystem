@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc,jobpost,algorithm
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,17 +25,33 @@ from django.views.static import serve
 urlpatterns = [
     
     path('',homepage,name="homepage"),
+    
     path('companyhome/',companyhome,name="companyhome"),
+   
     path('companylogin/companyverify',companyverify,name="companyverify"),
     path('companylogin/companyregister',companyregister,name="companyregister"), 
+
+    
+    path('companylogin/algorithm',algorithm,name="algorithm"),
+    path('companylogin/addesc',addesc,name="addesc"),
+    path('companylogin/jobpost',jobpost,name="jobpost"),
     path('companylogin/',companylogin,name="companylogin"),
 
+    #path('jobpost/',jobpost,name="jobpost"),
     path('about/',about,name="about"),
     path('studentDash/',studentDash,name="studentDash"),
     path('register/add/',add,name="add"),
     path('register/',register,name="register"),
     
-    path('addesc/',addesc,name="addesc"),
+    
+    
+    #path('addesc/jobpost',jobpost,name="jobpost"),
+    
+    #path('jobpost/',jobpost,name="jobpost"),
+    #path('addesc/',addesc,name="addesc"),
+    
+
+    
     path('apply/applied',applied,name="applied"),    
     path('apply/',apply,name="apply"),
     path('contact/',contact,name="contact"),
@@ -43,6 +59,7 @@ urlpatterns = [
     path('login/',login,name="login"),
     path('signout/',signout,name="signout"),
     path('admin/', admin.site.urls),
+    
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

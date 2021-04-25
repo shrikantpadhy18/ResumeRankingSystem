@@ -46,6 +46,8 @@
         </nav>
       </div>
       <div class="mainSection">
+        <form action="jobpost" method="POST">
+          {% csrf_token %}
         <div class="formSection">
           <div class="firstSection">
             <h3>Requirements</h3>
@@ -53,6 +55,7 @@
               <label for="pl">Programming Languages</label>
                 <input
                   type="text"
+                  name="language"
                   class="form-control"
                   id="pl"
                   placeholder="Py,Java,C++....."
@@ -64,9 +67,10 @@
                 <div class="form-group">
                   <label for="fm">Framerworks</label>
                   <input
-                    type="password"
+                    type="text"
                     class="form-control"
                     id="fm"
+                    name="Frameworks"
                     placeholder="Django,Angular..."
                     required
                   />
@@ -76,7 +80,8 @@
                 <div class="form-group">
                   <label for="db">Database</label>
                   <input
-                    type="password"
+                    name="database"
+                    type="text"
                     class="form-control"
                     id="db"
                     placeholder="MySql,Sql,MongoDB..."
@@ -88,9 +93,10 @@
                 <div class="form-group">
                   <label for="ep">Experience</label>
                   <input
-                    type="password"
+                    type="text"
                     class="form-control"
                     id="ep"
+                    name="experience"
                     placeholder=""
                     required
                   />
@@ -110,6 +116,20 @@
                       type="text"
                       class="form-control"
                       id="cn"
+                      name="companyname"
+                      placeholder=""
+                      required
+                    />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="cn">Company ID</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="cn"
+                      name="cid"
                       placeholder=""
                       required
                     />
@@ -122,6 +142,7 @@
                       type="text"
                       class="form-control"
                       id="jl"
+                      name="role"
                       placeholder=""
                       required
                     />
@@ -135,6 +156,7 @@
                       type="text"
                       class="form-control"
                       id="ba"
+                      name="batch"
                       placeholder="Batch 2017,2019,2020...."
                       required
                     />
@@ -152,6 +174,7 @@
                       id="sd"
                       placeholder=""
                       required
+                      name="startdate"
                     />
                 </div>
   
@@ -165,6 +188,7 @@
                       id="ed"
                       placeholder=""
                       required
+                      name="enddate"
                     />
                 </div>
               </div>

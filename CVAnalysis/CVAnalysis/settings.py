@@ -71,6 +71,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'CVAnalysis.wsgi.application'
 
 
+APPEND_SLASH=False 
+
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 

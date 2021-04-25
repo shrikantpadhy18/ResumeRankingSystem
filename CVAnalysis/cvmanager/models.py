@@ -35,4 +35,4 @@ class jobdesc(models.Model):
     batch=models.CharField(max_length=50)
     registrationstart=models.CharField(max_length=50)
     registrationend=models.CharField(max_length=50)
-    
+    cid=models.CharField(max_length=30,default="itsdefaultvalue")

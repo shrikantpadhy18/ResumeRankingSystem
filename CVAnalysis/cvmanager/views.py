@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
-from . models import CompanyDetail,appliedDetail
+from . models import CompanyDetail,appliedDetail,jobdesc
 from django.contrib.sessions.models import Session 
-
+import PyPDF2
+import os
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 # Create your views here.
 from django.contrib import messages
 def homepage(request):
@@ -71,7 +74,9 @@ def companyverify(request):
         is_companypass=CompanyDetail.objects.filter(password=password).exists()
         if(is_companymail and is_companypass):
             #auth.login(request,email)
-            return render(request,"CompanyDashboard.html")
+            request.session["cmpemail"]=email
+            print(request.session["cmpemail"])
+            return render(request,"CompanyDashboard.html",{'email':email})
         else:
             print("impossible")
             messages.info(request,"Invalid Credentials")
@@ -133,5 +138,100 @@ def applied(request):
         record.save()
 
         return redirect("apply")
+
+#addesc actually handles the get request of adding description tag made by the company,it return the description tag page where the tags will be created
 def addesc(request):
+    if(request.method=="GET"):
+
+        return render(request,"RequireMentForm.html")
+
+#below view actually is used for storing the job post made by the company into the database.
+def jobpost(request):
+    if(request.method=="POST"):
+        language=request.POST["language"]
+        Frameworks=request.POST["Frameworks"]
+        Database=request.POST["database"]
+        experience=request.POST["experience"]
+        companyname=request.POST["companyname"]
+        jobrole=request.POST["role"]
+        batch=request.POST["batch"]
+        startdate=request.POST["startdate"]
+        enddate=request.POST["enddate"]
+        companyid=request.POST["cid"]
+        record=jobdesc(programmingL=language,database=Database,frameworks=Frameworks,Experience=experience,name=companyname,role=jobrole,batch=batch,registrationstart=startdate,registrationend=enddate,cid=companyid)
+        record.save()
+        print("description submitted")
+
+        return redirect("addesc")
+def algorithm(request):
+    #the below path represent the directory in which all the uploaded documents would get stored
+    path="C:\\Users\shrikant padhy\\Desktop\\finaleyear\\ResumeRankingSystem\\CVAnalysis\\media\\media"
+    ans=[]
+    res=[]
+    #ans array represnt the all the files present in the given path
+    #we will iterate over all the files present in our directory one by one and convert the pdf to text and stores them in one array res which will reperesent the array of resumes 
+    
+    for root,dirs,files in os.walk(path):
+        ans=files
+    
+        #files=open(files,'rb')
+        '''pdfread=PyPDF2.PdfFileReader(files)
+        st=""
+        for i in range(pdfread.getNumPages()):
+            page=pdfread.getPage(i)
+
+            pageContent=page.extractText()
+            st+=str(pageContent)
+        ans.append(st)'''
+    for i in ans:
+        #pyPDF2 will be used to convert the pdf to text 
+        pdfread=PyPDF2.PdfFileReader(path+"\\"+str(i))
+        st=""
+        #in each pdf there will be multiple pages so we access them one by one using below loop and store them under one single variable st ,once the loop is finished st will now hold all the pages.which can be stored in the list 
+        for j in range(pdfread.getNumPages()):
+            page=pdfread.getPage(j)
+
+            pageContent=page.extractText()
+            st+=str(pageContent)
+        res.append([st,path+"\\"+str(i)])
+
+    print(res)
+
+    ob=jobdesc.objects.filter(cid=request.session['cmpemail'])    
+    print(ob)
+    #the below varibale will hold the job description posted by the company that would contain5 parameters based on which the CV will be ranked
+    st=""
+
+    for i in ob:
+        st+=str(i.programmingL)
+        st+=" "
+        st+=str(i.database)
+        st+=" "
+        st+=str(i.frameworks)
+        st+=" "
+        st+=str(i.Experience)
+        st+=" "
+        st+=str(i.role)
+        st+=" "
+    #will store the match percent of resumes
+
+    matchpercent=[]    
+    for i in res:
+        test=[i[0],st]
+        cv=CountVectorizer()
+        count_matrix=cv.fit_transform(test)
+        print(cosine_similarity(count_matrix))
+        print()
+        respath="media/"+str(i[1]).split("media\\")[2] #resume path is present in this format inise the table cvmanager_applieddetail.by using this we will fetch the email of the candidate
+        Email=appliedDetail.objects.filter(resumepath=respath).values('email')
+        dataEmail=None
+        if(Email):
+            dataEmail=Email[0].get('email',None)
+        #matchparent contains 4 field percentage match,resumepath in computer,resume name,email of candidate        
+        matchpercent.append([round(cosine_similarity(count_matrix)[0][1]*100,2),i[1],str(i[1]).split("media\\")[2],dataEmail])
+
+    #d=dict()
+
+    print(matchpercent)
+
     return render(request,"RequireMentForm.html")

@@ -38,7 +38,7 @@ urlpatterns = [
     path('companylogin/',companylogin,name="companylogin"),
 
     #path('jobpost/',jobpost,name="jobpost"),
-    path('about/',about,name="about"),
+    
     path('studentDash/',studentDash,name="studentDash"),
     path('register/add/',add,name="add"),
     path('register/',register,name="register"),
@@ -54,12 +54,13 @@ urlpatterns = [
     
     path('apply/applied',applied,name="applied"),    
     path('apply/',apply,name="apply"),
-    path('contact/',contact,name="contact"),
+    
     path('login/studentlogin',studentlogin,name="studentlogin"),
     path('login/',login,name="login"),
     path('signout/',signout,name="signout"),
     path('admin/', admin.site.urls),
-    
+    path('contact/',contact,name="contact"),
+    path('about/',about,name="about"),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

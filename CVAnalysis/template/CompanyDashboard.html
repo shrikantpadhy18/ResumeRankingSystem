@@ -72,24 +72,24 @@
           <!--<h5>Requirement</h5>
           <p>Blablablalbalbalbalbalblablablab..........</p> -->
 
-          <p>Ranking List</p>
+          <h1><p style="text-align: center;">Ranking List</p></h1>
           {% if flag %}
 
             <div class="row">
               
-              <div  class="col">
-                <p>PERCENTAGE</p>
+              <div style="background-color: black ;color:  white;" class="col">
+                <p >PERCENTAGE</p>
 
               </div>
-              <div  class="col">
+              <div  class="col" style="background-color: black ;color:  white;">
                 <p>Location of resume</p>
                 
               </div>
-              <div  class="col">
+              <div  class="col" style="background-color: black ;color:  white;">
                 <p>Resume Title</p>
                 
               </div>
-              <div  class="col">
+              <div  class="col" style="background-color: black ;color:  white;">
                 <p>Candidate email</p>
                 
               </div>
@@ -101,7 +101,15 @@
             {% for j in record %}
 
               <div class="col">
+                {% if "C:" in j  %}
+                  <a href="#{{j}}">Location</a>
+                {% elif "gmail" in j %}
+                  <a href="https://mail.gmail.com/{{j}}">{{j}}</a>
+                {% else %}
+
                 <p>{{j}}</p>
+
+                {% endif %}
 
               </div>
 

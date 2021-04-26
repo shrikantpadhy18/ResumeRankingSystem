@@ -6,6 +6,9 @@ import PyPDF2
 import os
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfTransformer 
+
+
 # Create your views here.
 from django.contrib import messages
 def homepage(request):
@@ -220,6 +223,20 @@ def algorithm(request):
         test=[i[0],st]
         cv=CountVectorizer()
         count_matrix=cv.fit_transform(test)
+
+        #tfidf section
+        tfidf_transformer=TfidfTransformer(smooth_idf=True,use_idf=True)
+        tfidf_transformer.fit(count_matrix)
+        #count matrix for tfidf transformer
+        count_vector=cv.transform(list(i[0]))
+        print("count_vector",count_vector)
+        #tfidf scores
+        tfidf_vector=tfidf_transformer.transform(count_vector)
+        print("tfidf vector",tfidf_vector)
+        print("cosine similarity of tfidf vector",cosine_similarity(tfidf_vector))
+
+
+        ###########
         print(cosine_similarity(count_matrix))
         print()
         respath="media/"+str(i[1]).split("media\\")[2] #resume path is present in this format inise the table cvmanager_applieddetail.by using this we will fetch the email of the candidate
@@ -236,4 +253,4 @@ def algorithm(request):
     fun=lambda n:n[0]
     matchpercent.sort(key=fun,reverse=True)
 
-    return render(request,"CompanyDashboard.html",{'flag':True,'matchpercent':matchpercent})
+    return render(request,"CompanyDashboard.html",{'email':request.session['cmpemail'],'flag':True,'matchpercent':matchpercent})

@@ -73,6 +73,46 @@
           <p>Blablablalbalbalbalbalblablablab..........</p> -->
 
           <p>Ranking List</p>
+          {% if flag %}
+
+            <div class="row">
+              
+              <div  class="col">
+                <p>PERCENTAGE</p>
+
+              </div>
+              <div  class="col">
+                <p>Location of resume</p>
+                
+              </div>
+              <div  class="col">
+                <p>Resume Title</p>
+                
+              </div>
+              <div  class="col">
+                <p>Candidate email</p>
+                
+              </div>
+            </div>
+            
+          {% for record in matchpercent %}
+            <div class="row">
+              
+            {% for j in record %}
+
+              <div class="col">
+                <p>{{j}}</p>
+
+              </div>
+
+            {% endfor %}
+              
+            </div>
+            
+          {% endfor %} 
+
+          {% endif %}
+
         </div>
       </div>
     </div>

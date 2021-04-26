@@ -76,7 +76,7 @@ def companyverify(request):
             #auth.login(request,email)
             request.session["cmpemail"]=email
             print(request.session["cmpemail"])
-            return render(request,"CompanyDashboard.html",{'email':email})
+            return render(request,"CompanyDashboard.html",{'email':email,'flage':False})
         else:
             print("impossible")
             messages.info(request,"Invalid Credentials")
@@ -233,5 +233,7 @@ def algorithm(request):
     #d=dict()
 
     print(matchpercent)
+    fun=lambda n:n[0]
+    matchpercent.sort(key=fun,reverse=True)
 
-    return render(request,"RequireMentForm.html")
+    return render(request,"CompanyDashboard.html",{'flag':True,'matchpercent':matchpercent})

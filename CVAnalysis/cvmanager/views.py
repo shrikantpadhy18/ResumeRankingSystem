@@ -101,7 +101,15 @@ def studentlogin(request):
             #request.session['name']=name
             auth.login(request,user)
             print("user exists")
-            return render(request,"studentHome.html")
+
+            #fetch all job desc made by companies
+            data=list(jobdesc.objects.all())
+            #list of dictionaries that would contain the dictionary of job desc 
+            print(data)
+            for i in data:
+                print(i.database)
+
+            return render(request,"studentHome.html",{'data':data})
         else:
             messages.info(request,"invalid credentials")
             print("no user")

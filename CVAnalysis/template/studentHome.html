@@ -62,6 +62,41 @@
             />
           </div>
         </div>
+        <table class="table">
+        <thead style="background-color: yellow;">
+          <tr>
+          <th>PROGRAMMING LANGUAGE</th>
+          <th>DATABASE</th>
+          <th>FRAMEWORKS</th>
+          <th>EXPERIENCE</th>
+          <th>COMPANY NAME</th>
+          <th>JOB ROLE</th>
+          <th>BATCH</th>
+          <th>Reg. START</th>
+          <th>Reg. ENDS</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+
+        <tr>
+          
+            <td>{{i.programmingL}}</td>
+            <td>{{i.database}}</td>
+            <td>{{i.frameworks}}</td>
+            <td>{{i.Experience}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.role}}</td>
+            <td>{{i.batch}}</td>
+            <td>{{i.registrationstart}}</td>
+            <td>{{i.registrationend}}</td>
+          
+        </tr>
+
+        {% endfor %}
+        </tbody>
+        </table>
+
         <div></div>
       </div>
       <div class="footer text-center">

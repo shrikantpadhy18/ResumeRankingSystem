@@ -253,7 +253,7 @@ def algorithm(request):
         if(Email):
             dataEmail=Email[0].get('email',None)
         #matchparent contains 4 field percentage match,resumepath in computer,resume name,email of candidate        
-        matchpercent.append([round(cosine_similarity(count_matrix)[0][1]*100,2),i[1],str(i[1]).split("media\\")[2],dataEmail])
+        matchpercent.append([round(cosine_similarity(count_matrix)[0][1]*100*6,2),i[1],str(i[1]).split("media\\")[2],dataEmail])
 
     #d=dict()
 

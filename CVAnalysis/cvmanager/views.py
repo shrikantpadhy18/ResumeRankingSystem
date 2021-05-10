@@ -120,10 +120,13 @@ def studenthome(request):
     if(request.session.has_key('is_logged')):
         return render(request,"studentHome.html")
     return redirect("login")
+
 def studentDash(request):
     if(request.session.has_key('is_logged')):
-
-        return render(request,"studentDash.html",{'email':request.session['email'],'user':request.session['username']})
+        first_name=User.objects.filter(email=request.session['email']).values('first_name').first()['first_name']
+        last_name=User.objects.filter(email=request.session['email']).values('last_name').first()['last_name']
+        
+        return render(request,"studentDash.html",{'email':request.session['email'],'user':request.session['username'],'Name':first_name+" "+last_name})
     return redirect("login")
 def about(request):
     return render(request,"AboutUs.html")

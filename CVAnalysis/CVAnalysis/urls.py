@@ -56,11 +56,12 @@ urlpatterns = [
     path('apply/',apply,name="apply"),
     
     path('login/studentlogin',studentlogin,name="studentlogin"),
-    path('login/',login,name="login"),
+    
     path('signout/',signout,name="signout"),
     path('admin/', admin.site.urls),
     path('contact/',contact,name="contact"),
     path('about/',about,name="about"),
+    path('login/',login,name="login"),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

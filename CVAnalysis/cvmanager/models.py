@@ -36,3 +36,5 @@ class jobdesc(models.Model):
     registrationstart=models.CharField(max_length=50)
     registrationend=models.CharField(max_length=50)
     cid=models.CharField(max_length=30,default="itsdefaultvalue")
+class queryform(models.Model):
+    pass

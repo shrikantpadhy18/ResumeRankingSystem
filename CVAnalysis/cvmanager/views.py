@@ -15,6 +15,7 @@ def homepage(request):
     return render(request,"home.html")
 
 def contact(request):
+    
     return render(request,"contact.html")
 
 def login(request):
@@ -78,6 +79,7 @@ def companyverify(request):
         if(is_companymail and is_companypass):
             #auth.login(request,email)
             request.session["cmpemail"]=email
+            
             print(request.session["cmpemail"])
             return render(request,"CompanyDashboard.html",{'email':email,'flage':False})
         else:
@@ -119,9 +121,10 @@ def studenthome(request):
         return render(request,"studentHome.html")
     return redirect("login")
 def studentDash(request):
-    
-    return render(request,"studentDash.html",{'email':request.session['email'],'user':request.session['username']})
+    if(request.session.has_key('is_logged')):
 
+        return render(request,"studentDash.html",{'email':request.session['email'],'user':request.session['username']})
+    return redirect("login")
 def about(request):
     return render(request,"AboutUs.html")
 
@@ -130,12 +133,15 @@ def companylogin(request):
 
 def signout(request):
     auth.logout(request)
-    #request.session['is_logged']=False
+    request.session['is_logged']=False
+    request.session['email']=None
+    request.session['username']=None
     return render(request,"login.html")
 
 def apply(request):
-    
-    return render(request,"apply.html")
+    if(request.session.has_key('is_logged')):
+        return render(request,"apply.html")
+    return redirect("login")
 def applied(request):
     if(request.method=="POST"):
         name=request.POST["name"]

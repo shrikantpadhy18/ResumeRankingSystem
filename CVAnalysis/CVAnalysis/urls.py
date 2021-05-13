@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc,jobpost,algorithm
 
 from django.conf import settings
@@ -25,7 +25,7 @@ from django.views.static import serve
 urlpatterns = [
     
     path('',homepage,name="homepage"),
-    
+    #path('',include('django.contrib.auth.urls')),
     path('companyhome/',companyhome,name="companyhome"),
    
     path('companylogin/companyverify',companyverify,name="companyverify"),
@@ -58,10 +58,11 @@ urlpatterns = [
     path('login/studentlogin',studentlogin,name="studentlogin"),
     
     path('signout/',signout,name="signout"),
-    path('admin/', admin.site.urls),
+   
     path('contact/',contact,name="contact"),
     path('about/',about,name="about"),
     path('login/',login,name="login"),
+    path('admin/', admin.site.urls), 
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

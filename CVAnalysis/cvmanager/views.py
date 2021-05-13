@@ -7,7 +7,9 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfTransformer 
-
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # Create your views here.
 from django.contrib import messages
@@ -249,12 +251,12 @@ def algorithm(request):
         print("count_vector",count_vector)
         #tfidf scores
         tfidf_vector=tfidf_transformer.transform(count_vector)
-        print("tfidf vector",tfidf_vector)
+        #print("tfidf vector",tfidf_vector)
         print("cosine similarity of tfidf vector",cosine_similarity(tfidf_vector))
 
 
         ###########
-        print(cosine_similarity(count_matrix))
+        print("cosine similarity",cosine_similarity(count_matrix))
         print()
         respath="media/"+str(i[1]).split("media\\")[2] #resume path is present in this format inise the table cvmanager_applieddetail.by using this we will fetch the email of the candidate
         Email=appliedDetail.objects.filter(resumepath=respath).values('email')
@@ -262,7 +264,30 @@ def algorithm(request):
         if(Email):
             dataEmail=Email[0].get('email',None)
         #matchparent contains 4 field percentage match,resumepath in computer,resume name,email of candidate        
-        matchpercent.append([round(cosine_similarity(count_matrix)[0][1]*100*6,2),i[1],str(i[1]).split("media\\")[2],dataEmail])
+        x=0
+        print("x",x)
+        x=round(cosine_similarity(count_matrix)[0][1]*100*5,2)
+        matchpercent.append([x,i[1],str(i[1]).split("media\\")[2],dataEmail])
+        sendmailtorejected=list(filter(lambda n:n[0]<50,matchpercent))
+        print("sendemail",sendmailtorejected)
+        if(len(sendmailtorejected)>0):
+            print(len(sendmailtorejected))
+            #Send mail to rejected candidates
+            fromaddr="prashantpadhy21@gmail.com"
+            msg=MIMEMultipart()
+            msg['from']=fromaddr
+            msg['subject']="UPDATE REGARDING OFF CAMPUS DRIVE"
+            body="THE BELOW WAS OUR REQUIREMENT\n"+st
+            msg.attach(MIMEText(body,'plain'))
+            server=smtplib.SMTP('smtp.gmail.com',port=587)
+            server.starttls()#connection established with gmail
+            server.login(fromaddr,"21052003")
+                
+            for i in sendmailtorejected:
+                msg['to']=i[3]
+                text=msg.as_string()
+                server.sendmail(fromaddr,i[3],text)
+            server.quit() 
 
     #d=dict()
 

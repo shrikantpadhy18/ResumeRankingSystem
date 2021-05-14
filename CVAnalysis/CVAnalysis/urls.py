@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc,jobpost,algorithm
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc,jobpost,algorithm,cmplogout
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,11 +27,11 @@ urlpatterns = [
     path('',homepage,name="homepage"),
     #path('',include('django.contrib.auth.urls')),
     path('companyhome/',companyhome,name="companyhome"),
-   
+    
     path('companylogin/companyverify',companyverify,name="companyverify"),
     path('companylogin/companyregister',companyregister,name="companyregister"), 
 
-    
+    path('companylogin/cmplogout',cmplogout,name="cmplogout"),
     path('companylogin/algorithm',algorithm,name="algorithm"),
     path('companylogin/addesc',addesc,name="addesc"),
     path('companylogin/jobpost',jobpost,name="jobpost"),

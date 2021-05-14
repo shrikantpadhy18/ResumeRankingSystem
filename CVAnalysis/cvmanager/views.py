@@ -81,7 +81,7 @@ def companyverify(request):
         if(is_companymail and is_companypass):
             #auth.login(request,email)
             request.session["cmpemail"]=email
-            
+            request.session['cmplogged']=True
             print(request.session["cmpemail"])
             return render(request,"CompanyDashboard.html",{'email':email,'flage':False})
         else:
@@ -102,7 +102,10 @@ def studentlogin(request):
             request.session['is_logged']=True
             request.session['email']=email
             request.session['username']=username
+
+            request.session['first_name']=User.objects.filter(email=email).values('first_name').first()['first_name']    
             #request.session['name']=name
+            print("firstname",request.session['first_name'])
             auth.login(request,user)
             print("user exists")
 
@@ -141,11 +144,12 @@ def signout(request):
     request.session['is_logged']=False
     request.session['email']=None
     request.session['username']=None
-    return render(request,"login.html")
+    request.session['first_name']=None
+    return render(request,"home.html")
 
 def apply(request):
     if(request.session.has_key('is_logged')):
-        return render(request,"apply.html")
+        return render(request,"apply.html",{'email':request.session['email'],'name':request.session['first_name']})
     return redirect("login")
 def applied(request):
     if(request.method=="POST"):
@@ -163,9 +167,9 @@ def applied(request):
 
 #addesc actually handles the get request of adding description tag made by the company,it return the description tag page where the tags will be created
 def addesc(request):
-    if(request.method=="GET"):
+    if(request.method=="GET" and request.session['cmplogged']==True):
 
-        return render(request,"RequireMentForm.html")
+        return render(request,"RequireMentForm.html",{'cmpemail':request.session['cmpemail']})
 
 #below view actually is used for storing the job post made by the company into the database.
 def jobpost(request):
@@ -186,113 +190,118 @@ def jobpost(request):
 
         return redirect("addesc")
 def algorithm(request):
-    #the below path represent the directory in which all the uploaded documents would get stored
-    path="C:\\Users\shrikant padhy\\Desktop\\finaleyear\\ResumeRankingSystem\\CVAnalysis\\media\\media"
-    ans=[]
-    res=[]
-    #ans array represnt the all the files present in the given path
-    #we will iterate over all the files present in our directory one by one and convert the pdf to text and stores them in one array res which will reperesent the array of resumes 
-    
-    for root,dirs,files in os.walk(path):
-        ans=files
-    
-        #files=open(files,'rb')
-        '''pdfread=PyPDF2.PdfFileReader(files)
+    if(request.session['cmplogged']==True):
+        #the below path represent the directory in which all the uploaded documents would get stored
+        path="C:\\Users\shrikant padhy\\Desktop\\finaleyear\\ResumeRankingSystem\\CVAnalysis\\media\\media"
+        ans=[]
+        res=[]
+        #ans array represnt the all the files present in the given path
+        #we will iterate over all the files present in our directory one by one and convert the pdf to text and stores them in one array res which will reperesent the array of resumes 
+        
+        for root,dirs,files in os.walk(path):
+            ans=files
+        
+            #files=open(files,'rb')
+            '''pdfread=PyPDF2.PdfFileReader(files)
+            st=""
+            for i in range(pdfread.getNumPages()):
+                page=pdfread.getPage(i)
+
+                pageContent=page.extractText()
+                st+=str(pageContent)
+            ans.append(st)'''
+        for i in ans:
+            #pyPDF2 will be used to convert the pdf to text 
+            pdfread=PyPDF2.PdfFileReader(path+"\\"+str(i))
+            st=""
+            #in each pdf there will be multiple pages so we access them one by one using below loop and store them under one single variable st ,once the loop is finished st will now hold all the pages.which can be stored in the list 
+            for j in range(pdfread.getNumPages()):
+                page=pdfread.getPage(j)
+
+                pageContent=page.extractText()
+                st+=str(pageContent)
+            res.append([st,path+"\\"+str(i)])
+
+        print(res)
+
+        ob=jobdesc.objects.filter(cid=request.session['cmpemail'])    
+        print(ob)
+        #the below varibale will hold the job description posted by the company that would contain5 parameters based on which the CV will be ranked
         st=""
-        for i in range(pdfread.getNumPages()):
-            page=pdfread.getPage(i)
 
-            pageContent=page.extractText()
-            st+=str(pageContent)
-        ans.append(st)'''
-    for i in ans:
-        #pyPDF2 will be used to convert the pdf to text 
-        pdfread=PyPDF2.PdfFileReader(path+"\\"+str(i))
-        st=""
-        #in each pdf there will be multiple pages so we access them one by one using below loop and store them under one single variable st ,once the loop is finished st will now hold all the pages.which can be stored in the list 
-        for j in range(pdfread.getNumPages()):
-            page=pdfread.getPage(j)
+        for i in ob:
+            st+=str(i.programmingL)
+            st+=" "
+            st+=str(i.database)
+            st+=" "
+            st+=str(i.frameworks)
+            st+=" "
+            st+=str(i.Experience)
+            st+=" "
+            st+=str(i.role)
+            st+=" "
+        #will store the match percent of resumes
 
-            pageContent=page.extractText()
-            st+=str(pageContent)
-        res.append([st,path+"\\"+str(i)])
+        matchpercent=[]    
+        for i in res:
+            test=[i[0],st]
+            cv=CountVectorizer()
+            count_matrix=cv.fit_transform(test)
 
-    print(res)
-
-    ob=jobdesc.objects.filter(cid=request.session['cmpemail'])    
-    print(ob)
-    #the below varibale will hold the job description posted by the company that would contain5 parameters based on which the CV will be ranked
-    st=""
-
-    for i in ob:
-        st+=str(i.programmingL)
-        st+=" "
-        st+=str(i.database)
-        st+=" "
-        st+=str(i.frameworks)
-        st+=" "
-        st+=str(i.Experience)
-        st+=" "
-        st+=str(i.role)
-        st+=" "
-    #will store the match percent of resumes
-
-    matchpercent=[]    
-    for i in res:
-        test=[i[0],st]
-        cv=CountVectorizer()
-        count_matrix=cv.fit_transform(test)
-
-        #tfidf section
-        tfidf_transformer=TfidfTransformer(smooth_idf=True,use_idf=True)
-        tfidf_transformer.fit(count_matrix)
-        #count matrix for tfidf transformer
-        count_vector=cv.transform(list(i[0]))
-        print("count_vector",count_vector)
-        #tfidf scores
-        tfidf_vector=tfidf_transformer.transform(count_vector)
-        #print("tfidf vector",tfidf_vector)
-        print("cosine similarity of tfidf vector",cosine_similarity(tfidf_vector))
+            #tfidf section
+            tfidf_transformer=TfidfTransformer(smooth_idf=True,use_idf=True)
+            tfidf_transformer.fit(count_matrix)
+            #count matrix for tfidf transformer
+            count_vector=cv.transform(list(i[0]))
+            print("count_vector",count_vector)
+            #tfidf scores
+            tfidf_vector=tfidf_transformer.transform(count_vector)
+            #print("tfidf vector",tfidf_vector)
+            print("cosine similarity of tfidf vector",cosine_similarity(tfidf_vector))
 
 
-        ###########
-        print("cosine similarity",cosine_similarity(count_matrix))
-        print()
-        respath="media/"+str(i[1]).split("media\\")[2] #resume path is present in this format inise the table cvmanager_applieddetail.by using this we will fetch the email of the candidate
-        Email=appliedDetail.objects.filter(resumepath=respath).values('email')
-        dataEmail=None
-        if(Email):
-            dataEmail=Email[0].get('email',None)
-        #matchparent contains 4 field percentage match,resumepath in computer,resume name,email of candidate        
-        x=0
-        print("x",x)
-        x=round(cosine_similarity(count_matrix)[0][1]*100*5,2)
-        matchpercent.append([x,i[1],str(i[1]).split("media\\")[2],dataEmail])
-        sendmailtorejected=list(filter(lambda n:n[0]<50,matchpercent))
-        print("sendemail",sendmailtorejected)
-        if(len(sendmailtorejected)>0):
-            print(len(sendmailtorejected))
-            #Send mail to rejected candidates
-            fromaddr="prashantpadhy21@gmail.com"
-            msg=MIMEMultipart()
-            msg['from']=fromaddr
-            msg['subject']="UPDATE REGARDING OFF CAMPUS DRIVE"
-            body="THE BELOW WAS OUR REQUIREMENT\n"+st
-            msg.attach(MIMEText(body,'plain'))
-            server=smtplib.SMTP('smtp.gmail.com',port=587)
-            server.starttls()#connection established with gmail
-            server.login(fromaddr,"21052003")
-                
-            for i in sendmailtorejected:
-                msg['to']=i[3]
-                text=msg.as_string()
-                server.sendmail(fromaddr,i[3],text)
-            server.quit() 
+            ###########
+            print("cosine similarity",cosine_similarity(count_matrix))
+            print()
+            respath="media/"+str(i[1]).split("media\\")[2] #resume path is present in this format inise the table cvmanager_applieddetail.by using this we will fetch the email of the candidate
+            Email=appliedDetail.objects.filter(resumepath=respath).values('email')
+            dataEmail=None
+            if(Email):
+                dataEmail=Email[0].get('email',None)
+            #matchparent contains 4 field percentage match,resumepath in computer,resume name,email of candidate        
+            x=0
+            print("x",x)
+            x=round(cosine_similarity(count_matrix)[0][1]*100*5,2)
+            matchpercent.append([x,i[1],str(i[1]).split("media\\")[2],dataEmail])
+            sendmailtorejected=list(filter(lambda n:n[0]<50,matchpercent))
+            print("sendemail",sendmailtorejected)
+            if(len(sendmailtorejected)>0):
+                print(len(sendmailtorejected))
+                #Send mail to rejected candidates
+                fromaddr="prashantpadhy21@gmail.com"
+                msg=MIMEMultipart()
+                msg['from']=fromaddr
+                msg['subject']="UPDATE REGARDING OFF CAMPUS DRIVE"
+                body="THE BELOW WAS OUR REQUIREMENT\n"+st
+                msg.attach(MIMEText(body,'plain'))
+                server=smtplib.SMTP('smtp.gmail.com',port=587)
+                server.starttls()#connection established with gmail
+                server.login(fromaddr,"21052003")
+                    
+                for i in sendmailtorejected:
+                    msg['to']=i[3]
+                    text=msg.as_string()
+                    server.sendmail(fromaddr,i[3],text)
+                server.quit() 
 
-    #d=dict()
+        #d=dict()
 
-    print(matchpercent)
-    fun=lambda n:n[0]
-    matchpercent.sort(key=fun,reverse=True)
-
-    return render(request,"CompanyDashboard.html",{'email':request.session['cmpemail'],'flag':True,'matchpercent':matchpercent})
+        print(matchpercent)
+        fun=lambda n:n[0]
+        matchpercent.sort(key=fun,reverse=True)
+        
+        return render(request,"CompanyDashboard.html",{'email':request.session['cmpemail'],'flag':True,'matchpercent':matchpercent})
+def cmplogout(request):
+    request.session['cmpemail']=None
+    request.session['cmplogged']=None
+    return render(request,"home.html")

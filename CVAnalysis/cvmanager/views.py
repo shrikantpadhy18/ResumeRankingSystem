@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
-from . models import CompanyDetail,appliedDetail,jobdesc
+from . models import CompanyDetail,appliedDetail,jobdesc,queryform
 from django.contrib.sessions.models import Session 
 import PyPDF2
 import os
@@ -305,3 +305,16 @@ def cmplogout(request):
     request.session['cmpemail']=None
     request.session['cmplogged']=None
     return render(request,"home.html")
+
+def griev(request):
+    if(request.method=="POST"):
+        name=request.POST["name"]
+        email=request.POST["email"]
+        msg=request.POST["message"]
+
+        record=queryform(name=name,email=email,message=msg)
+        record.save()
+
+        return render(request,"contact.html")
+
+        

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc,jobpost,algorithm,cmplogout
+from cvmanager.views import homepage,contact,login,register,add,studentlogin,studentDash,about,companylogin,companyregister,companyverify,companyhome,signout,apply,applied,addesc,jobpost,algorithm,cmplogout,griev
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -58,9 +58,10 @@ urlpatterns = [
     path('login/studentlogin',studentlogin,name="studentlogin"),
     
     path('signout/',signout,name="signout"),
-   
+    
     path('contact/',contact,name="contact"),
     path('about/',about,name="about"),
+    path('query/',griev,name="griev"),
     path('login/',login,name="login"),
     path('admin/', admin.site.urls), 
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),

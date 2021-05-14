@@ -47,13 +47,14 @@
         </nav>
       </div>
       <div class="mainSection">
-        <form class="w-50">
+        <form method="POST" action="/query/" class="w-50">{% csrf_token %}
           <div class="form-group">
             <label for="name">Name :</label>
             <input
               type="text"
               class="form-control"
               id="name"
+              name="name"
               placeholder="Enter your name"
               required
             />
@@ -64,6 +65,7 @@
               type="email"
               class="form-control"
               id="email"
+              name="email"
               placeholder="Enter email"
               required
             />
@@ -73,7 +75,7 @@
           </div>
           <div class="form-group">
             <label for="name">Query :</label>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea name="message" class="form-control" rows="3"></textarea>
           </div>
           <button type="submit" class="btn">Submit</button>
         </form>

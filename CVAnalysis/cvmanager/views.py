@@ -236,7 +236,7 @@ def algorithm(request):
             st+=" "
             st+=str(i.frameworks)
             st+=" "
-            st+=str(i.Experience)
+            st+="Experience"+str(i.Experience)
             st+=" "
             st+=str(i.role)
             st+=" "
@@ -317,4 +317,3 @@ def griev(request):
 
         return render(request,"contact.html")
 
-        
